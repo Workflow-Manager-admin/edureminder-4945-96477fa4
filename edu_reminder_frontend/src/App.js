@@ -1,35 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
+// PUBLIC_INTERFACE
 function App() {
+  // For highlighting which section is "active"
+  const [activeSection, setActiveSection] = useState('all');
+
   return (
     <div className="app">
-      <nav className="navbar">
-        <div className="container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-            <div className="logo">
-              <span className="logo-symbol">*</span> KAVIA AI
-            </div>
-            <button className="btn">Template Button</button>
+      {/* Header */}
+      <header className="header">
+        <span className="site-title">EduReminder</span>
+      </header>
+      <div className="layout">
+        {/* Sidebar Navigation */}
+        <nav className="sidebar" aria-label="Main Navigation">
+          <button
+            className={`nav-link${activeSection === 'all' ? ' active' : ''}`}
+            onClick={() => setActiveSection('all')}
+            tabIndex={0}
+          >
+            All Reminders
+          </button>
+          <button
+            className={`nav-link${activeSection === 'create' ? ' active' : ''}`}
+            onClick={() => setActiveSection('create')}
+            tabIndex={0}
+          >
+            Create Reminder
+          </button>
+        </nav>
+        {/* Main content area */}
+        <main className="main-content">
+          <h1 style={{ fontWeight: 600, color: 'var(--accent)', marginBottom: 0 }}>
+            {activeSection === 'all' ? 'Your Reminders' : 'Create New Reminder'}
+          </h1>
+          {/* Placeholder for reminders list or creation form */}
+          <div className="reminders-placeholder">
+            {activeSection === 'all'
+              ? 'Reminders will appear here. (List or Calendar View soon!)'
+              : 'Reminder creation form coming soon.'}
           </div>
-        </div>
-      </nav>
-
-      <main>
-        <div className="container">
-          <div className="hero">
-            <div className="subtitle">AI Workflow Manager Template</div>
-            
-            <h1 className="title">edu_reminder_frontend</h1>
-            
-            <div className="description">
-              Start building your application.
-            </div>
-            
-            <button className="btn btn-large">Button</button>
-          </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }
